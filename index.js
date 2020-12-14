@@ -8,6 +8,20 @@ String.prototype.trimR = function (char) {
 String.prototype.trimD = function (char) {
     return this.replace(new RegExp('^\\'+char+'+|\\'+char+'+$', 'g'), '')
 }
+String.prototype.findBetween = function(start,end){
+    let s=this.indexOf(start)
+    if(s===-1){
+        return undefined
+    }
+    let e=this.lastIndexOf(end)
+    if(e===-1){
+        return undefined
+    }
+    if(s+1>=e){
+        return undefined
+    }
+    return this.substring(s+1,e)
+}
 
 
 
