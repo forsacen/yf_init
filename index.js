@@ -8,6 +8,8 @@ String.prototype.trimR = function (char) {
 String.prototype.trimD = function (char) {
     return this.replace(new RegExp('^\\'+char+'+|\\'+char+'+$', 'g'), '')
 }
+
+//查找2个字符串之间的字符,如果start为'',则从头部查起,没找到返回undefined
 String.prototype.findBetween = function(start,end){
     let s=this.indexOf(start)
     if(s===-1){
@@ -17,10 +19,10 @@ String.prototype.findBetween = function(start,end){
     if(e===-1){
         return undefined
     }
-    if(s+1>=e){
+    if(s+start.length>=e){
         return undefined
     }
-    return this.substring(s+1,e)
+    return this.substring(s+start.length,e)
 }
 
 
