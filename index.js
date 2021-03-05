@@ -29,6 +29,15 @@ String.prototype.findBetween = function(start,end){
     return this.substring(s+start.length,e)
 }
 
+//两个字符串是否一个包含另一个
+String.prototype.containOther = function(s){
+    if(this.length>=s.length){
+        return this.indexOf(s) !== -1
+    }else{
+        return s.indexOf(this) !== -1
+    }
+}
+
 //提取中文,extraReg是额外要匹配的正则字符串，例如《|》
 String.prototype.getChinese=function(extraReg) {
     //匹配中文字符以及这些中文标点符号 。 ？ ！ ， 、 ； ： “ ” ‘ ' （ ） 《 》 〈 〉 【 】 『 』 「 」 ﹃ ﹄ 〔 〕 … — ～ ﹏ ￥
@@ -57,6 +66,20 @@ String.prototype.getEnglish=function(extraReg) {
         resultStr = tempValue.join("");
     }
     return resultStr; //返回匹配的字符串
+}
+
+String.prototype.getWordsCount=function(){
+    let reg=/[a-zA-Z]+\b/g
+    return this.match(reg).length
+}
+
+String.prototype.isNumber=function(){
+    var reg = /^[0-9]+.?[0-9]*$/
+    if(reg.test(this)){
+        return true
+    }else{
+        return false
+    }
 }
 
 
