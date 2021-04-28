@@ -1,12 +1,16 @@
 const EventEmitter=require('events').EventEmitter
 String.prototype.trimL = function (char) {
-    return this.replace(new RegExp('^\\'+char+'+', 'g'), '')
+    let s='^('+char+')+'
+    return this.replace(new RegExp('^('+char+')+', 'g'),'')
 }
 String.prototype.trimR = function (char) {
-    return this.replace(new RegExp('\\'+char+'+$', 'g'), '')
+    return this.replace(new RegExp('('+char+')+$', 'g'), '')
 }
+//let s='abc&nbsp;abcs&nbsp;hahasabchaha&nbsp;sabc&nbsp;'
+//s=s.trimD('(&nbsp;)|(abc)|(s)') --结果hahasabchaha
+//注意\参数都是\\,如果参数本身是\,那这边就是\\,参数那边就是\\\\
 String.prototype.trimD = function (char) {
-    return this.replace(new RegExp('^\\'+char+'+|\\'+char+'+$', 'g'), '')
+    return this.replace(new RegExp('^('+char+')+|('+char+')+$', 'g'), '')
 }
 //替换所有字符串
 String.prototype.replaceAll=function(src,dest){
@@ -81,27 +85,3 @@ String.prototype.isNumber=function(){
         return false
     }
 }
-
-
-
-EventEmitter.prototype.emitAsync=function(event,...args){
-    return new Promise((resolve)=>{
-        if(this._events[event]){
-            if(typeof this._events[event]==='function'){
-                this.emit(event,resolve,...args)
-            }else{
-                let count=this._events[event].length
-                this.emit(event,()=>{
-                    count--
-                    if(count===0){
-                        resolve()
-                    }
-                },...args)
-            }
-        }else{
-            resolve()
-        }
-    })
-}
-
-EventEmitter.prototype.onAsync=EventEmitter.prototype.on
