@@ -1,6 +1,4 @@
-const EventEmitter=require('events').EventEmitter
 String.prototype.trimL = function (char) {
-    let s='^('+char+')+'
     return this.replace(new RegExp('^('+char+')+', 'g'),'')
 }
 String.prototype.trimR = function (char) {
@@ -85,3 +83,5 @@ String.prototype.isNumber=function(){
         return false
     }
 }
+
+module.exports=function (){}
